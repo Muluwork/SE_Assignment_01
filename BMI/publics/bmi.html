@@ -1,0 +1,219 @@
+<html>
+    
+    <head>
+        <script src="jquery-3.2.1.js"></script>
+        <script>
+            $(document).ready(function () {
+            $("#calculateBMI").click(function(){
+                
+                var height = $("#height").val();
+                var weight = $("#weight").val();
+
+            
+                let httpRequest = new XMLHttpRequest();
+
+                
+                
+                if (height == "" || weight == "") {
+                        $("input[type=text]").attr("placeholder", "invalid input");
+                        $("input[type=text]").css({ "color": "red" });
+                        console.log("no input");
+
+
+                    }
+                     else {
+                        
+                        $.post("/calculateBmi",
+                        {
+                            
+                        height: height,
+                        weight: weight
+                    },
+                    function(data,status){
+                        if (status == "success") {
+                                  
+                                    console.log(data);
+                                   
+                                   
+                                   $("textarea#bmi").val( "your BMI is : "+data.data);
+                                   //location.reload();
+                                }  else {
+                                    $("#bmi").innerHTML = "Quit";
+                                }
+                    });
+                    }     
+
+
+            });
+        });
+             </script>
+    <style>
+         body{
+            background-image: url("cute.jpg");
+        }
+
+        *{
+
+
+            font-family: "Roboto";
+        }
+        .containerbmical {
+            margin: 50px auto;
+            width: 640px;
+            /* border: 2px solid darkblue; */
+        }
+
+       
+
+        .bmical {
+            position: relative;
+            margin: 20% auto;
+            padding: 20px 20px 20px;
+            width: 310px;
+            height: 51vh;
+            /* border: 2px solid seagreen */
+        }
+
+
+       
+        .bmical div.submit {
+            text-align: right;
+            position: relative;
+            top: 35px;
+            
+            /* top:50%; */
+        }
+
+     
+
+
+
+
+       
+        #bmi{
+            border-radius: 1px;
+            padding: 6px;
+            border-style: hidden;
+        }
+
+        .bmical:before {
+
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            bottom: -8px;
+            left: -8px;
+            z-index: -1;
+            background: rgba(83, 104, 167, 0.38);
+
+            border-radius: 4px;
+        }
+
+        .bmical h1 {
+            margin: -20px -20px 21px;
+            line-height: 30px;
+            font-size: 15px;
+
+            color: wheat;
+            text-align: center;
+
+
+            /* border-bottom: 1px solid#cfcfcf; */
+            border-radius: 3px 3px 0 0;
+
+            box-shadow: 0 1px whitesmoke;
+        }
+
+        .bmical p {
+            margin: 20px 0 0;
+        }
+
+        .bmical input[type=text],
+        {
+            width: 278px;
+            border-radius: 1px;
+            outline: 1px solid rgba(0, 0, 0, 0.8);
+        }
+
+     
+
+        input {
+            font-family: 'lucida grande';
+            font-size: 14px;
+            color: rgba(10, 49, 165, 0.9);
+        }
+
+
+        #weight{
+            
+            border-radius: 1px;
+            padding: 6px;
+            border-style: hidden;
+
+        }
+        #height{
+            border-radius: 1px;
+            padding: 6px;
+            border-style: hidden;
+        }
+
+
+        input[type=checkbox] {
+
+
+            font-size: 16px;
+            line-height: 2px;
+            width: 1px;
+
+
+        }
+        
+        input[type=submit] {
+            background-color: rgba(5, 13, 68, 0.97);;
+            color: wheat;
+            border: 1px solid white;
+            border-radius: 2px;
+            width: 300px;
+            height: 43px;
+            margin-bottom: 21px;
+            border: 0px;
+        }
+
+       
+
+     
+       
+    </style>
+</head>
+
+<body>
+
+    
+        <div class='bmical'>
+
+           
+
+            <h1>BMI calculator</h1>
+
+            
+            <p>
+                <input type="text" name="weight"  placeholder="" id="weight">
+            </p>
+
+            <p>
+                <input type="text" name="height" placeholder="" id="height" />
+            </p>
+            <div class="submit">
+                <input class="submit" type="submit" name="calculate" value="calculate BMI" id="calculateBMI">
+                
+            </div>
+            <p>
+                <textarea type="text" name="BMI" placeholder="" id="bmi" ></textarea>
+
+            </p>
+
+
+</body>
+
+</html>
